@@ -1,0 +1,67 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <title>Форма бронирования</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; background-color: #f4f4f4; }
+    label { display: block; margin-top: 10px; font-weight: bold; }
+    select, input, button { width: 100%; padding: 10px; margin-top: 5px; font-size: 16px; }
+    button { background-color: #0088cc; color: white; border: none; cursor: pointer; }
+    button:hover { background-color: #0077b3; }
+  </style>
+</head>
+<body>
+  <h2>Форма бронирования слота</h2>
+  <form id="bookingForm">
+    <label for="account">Магазин:</label>
+    <select id="account">
+      <option value="ООО">ООО ГЕПАРД</option>
+      <option value="ИП">ИП ГЕПАРД</option>
+    </select>
+
+    <label for="nmID">Артикул:</label>
+    <input type="text" id="nmID" placeholder="Введите артикул товара" />
+
+    <label for="warehouse">Склад:</label>
+    <input type="text" id="warehouse" placeholder="Введите склад" />
+
+    <label for="quantity">Количество:</label>
+    <input type="number" id="quantity" placeholder="Введите количество" />
+
+    <label for="dateStart">Дата начала:</label>
+    <input type="date" id="dateStart" />
+
+    <label for="dateEnd">Дата окончания:</label>
+    <input type="date" id="dateEnd" />
+
+    <label for="coefficient">Коэффициент (x1–x15):</label>
+    <input type="number" id="coefficient" min="1" max="15" value="1" />
+
+    <button type="submit">Отправить</button>
+  </form>
+
+  <script>
+    const tg = window.Telegram.WebApp;
+    const form = document.getElementById("bookingForm");
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      const data = {
+        account: form.account.value,
+        nmID: form.nmID.value,
+        warehouse: form.warehouse.value,
+        quantity: form.quantity.value,
+        dateStart: form.dateStart.value,
+        dateEnd: form.dateEnd.value,
+        coefficient: form.coefficient.value
+      };
+      tg.sendData(JSON.stringify(data));
+      tg.close();
+    });
+  </script>
+</body>
+</html>
