@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -7,11 +6,31 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
   <style>
-    body { font-family: Arial, sans-serif; padding: 20px; background-color: #f4f4f4; }
-    label { display: block; margin-top: 10px; font-weight: bold; }
-    select, input, button { width: 100%; padding: 10px; margin-top: 5px; font-size: 16px; }
-    button { background-color: #0088cc; color: white; border: none; cursor: pointer; }
-    button:hover { background-color: #0077b3; }
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background-color: #f4f4f4;
+    }
+    label {
+      display: block;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+    select, input, button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      font-size: 16px;
+    }
+    button {
+      background-color: #0088cc;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0077b3;
+    }
   </style>
 </head>
 <body>
@@ -48,17 +67,22 @@
     const tg = window.Telegram.WebApp;
     const form = document.getElementById("bookingForm");
 
+    tg.ready(); // Инициализация Telegram WebApp
+
     form.addEventListener("submit", function (e) {
       e.preventDefault();
+
       const data = {
-        account: form.account.value,
-        nmID: form.nmID.value,
-        warehouse: form.warehouse.value,
-        quantity: form.quantity.value,
-        dateStart: form.dateStart.value,
-        dateEnd: form.dateEnd.value,
-        coefficient: form.coefficient.value
+        account: document.getElementById("account").value,
+        nmID: document.getElementById("nmID").value,
+        warehouse: document.getElementById("warehouse").value,
+        quantity: document.getElementById("quantity").value,
+        dateStart: document.getElementById("dateStart").value,
+        dateEnd: document.getElementById("dateEnd").value,
+        coefficient: document.getElementById("coefficient").value
       };
+
+      console.log("📤 Отправка данных в Telegram:", data);
       tg.sendData(JSON.stringify(data));
       tg.close();
     });
